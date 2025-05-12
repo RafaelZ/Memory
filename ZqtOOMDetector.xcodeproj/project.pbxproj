@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		8CE7D2C52DD19345009B3EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8CE7D23A2DCF7B38009B3EDE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8CE7D2412DCF7B38009B3EDE;
+			remoteInfo = ZqtOOMDetector;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		8CE7D2422DCF7B38009B3EDE /* ZqtOOMDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZqtOOMDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CE7D2C12DD19345009B3EDE /* ZqtOOMDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZqtOOMDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -29,10 +40,22 @@
 			path = ZqtOOMDetector;
 			sourceTree = "<group>";
 		};
+		8CE7D2C22DD19345009B3EDE /* ZqtOOMDetectorTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ZqtOOMDetectorTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8CE7D23F2DCF7B38009B3EDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CE7D2BE2DD19345009B3EDE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				8CE7D2442DCF7B38009B3EDE /* ZqtOOMDetector */,
+				8CE7D2C22DD19345009B3EDE /* ZqtOOMDetectorTests */,
 				8CE7D2432DCF7B38009B3EDE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				8CE7D2422DCF7B38009B3EDE /* ZqtOOMDetector.app */,
+				8CE7D2C12DD19345009B3EDE /* ZqtOOMDetectorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +108,29 @@
 			productReference = 8CE7D2422DCF7B38009B3EDE /* ZqtOOMDetector.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8CE7D2C02DD19345009B3EDE /* ZqtOOMDetectorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CE7D2C92DD19345009B3EDE /* Build configuration list for PBXNativeTarget "ZqtOOMDetectorTests" */;
+			buildPhases = (
+				8CE7D2BD2DD19345009B3EDE /* Sources */,
+				8CE7D2BE2DD19345009B3EDE /* Frameworks */,
+				8CE7D2BF2DD19345009B3EDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8CE7D2C62DD19345009B3EDE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8CE7D2C22DD19345009B3EDE /* ZqtOOMDetectorTests */,
+			);
+			name = ZqtOOMDetectorTests;
+			packageProductDependencies = (
+			);
+			productName = ZqtOOMDetectorTests;
+			productReference = 8CE7D2C12DD19345009B3EDE /* ZqtOOMDetectorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -94,6 +142,10 @@
 				TargetAttributes = {
 					8CE7D2412DCF7B38009B3EDE = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					8CE7D2C02DD19345009B3EDE = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 8CE7D2412DCF7B38009B3EDE;
 					};
 				};
 			};
@@ -112,12 +164,20 @@
 			projectRoot = "";
 			targets = (
 				8CE7D2412DCF7B38009B3EDE /* ZqtOOMDetector */,
+				8CE7D2C02DD19345009B3EDE /* ZqtOOMDetectorTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8CE7D2402DCF7B38009B3EDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CE7D2BF2DD19345009B3EDE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -134,7 +194,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8CE7D2BD2DD19345009B3EDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8CE7D2C62DD19345009B3EDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8CE7D2412DCF7B38009B3EDE /* ZqtOOMDetector */;
+			targetProxy = 8CE7D2C52DD19345009B3EDE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8CE7D25B2DCF7B3D009B3EDE /* Debug */ = {
@@ -152,6 +227,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -179,6 +255,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +386,42 @@
 			};
 			name = Release;
 		};
+		8CE7D2C72DD19345009B3EDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K9X2236C57;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rafael.test.ZqtOOMDetectorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZqtOOMDetector.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ZqtOOMDetector";
+			};
+			name = Debug;
+		};
+		8CE7D2C82DD19345009B3EDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K9X2236C57;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rafael.test.ZqtOOMDetectorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZqtOOMDetector.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ZqtOOMDetector";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -326,6 +439,15 @@
 			buildConfigurations = (
 				8CE7D25B2DCF7B3D009B3EDE /* Debug */,
 				8CE7D25C2DCF7B3D009B3EDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8CE7D2C92DD19345009B3EDE /* Build configuration list for PBXNativeTarget "ZqtOOMDetectorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CE7D2C72DD19345009B3EDE /* Debug */,
+				8CE7D2C82DD19345009B3EDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
