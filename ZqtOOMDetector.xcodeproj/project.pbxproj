@@ -19,6 +19,7 @@
 /* Begin PBXFileReference section */
 		8CE7D2422DCF7B38009B3EDE /* ZqtOOMDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZqtOOMDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CE7D2C12DD19345009B3EDE /* ZqtOOMDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZqtOOMDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CE7D2D22DD1DBBA009B3EDE /* VmRegion.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = VmRegion.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -68,6 +69,7 @@
 		8CE7D2392DCF7B38009B3EDE = {
 			isa = PBXGroup;
 			children = (
+				8CE7D2D22DD1DBBA009B3EDE /* VmRegion.xctestplan */,
 				8CE7D2442DCF7B38009B3EDE /* ZqtOOMDetector */,
 				8CE7D2C22DD19345009B3EDE /* ZqtOOMDetectorTests */,
 				8CE7D2432DCF7B38009B3EDE /* Products */,

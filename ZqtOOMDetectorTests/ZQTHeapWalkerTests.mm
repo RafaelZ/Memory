@@ -50,7 +50,7 @@
         // 开始扫描
         walker.scanHeap();
         const auto& nodes = walker.getNodes();
-        
+        NSLog(@"%s node size %ld",__func__,nodes.size());
         // 验证基本属性
         XCTAssertGreaterThan(nodes.size(), 0, @"应该至少找到一个内存节点");
         
@@ -237,6 +237,85 @@
         malloc_zone_free(ZQTCustomMallocZone, customPtr);
         free(defaultPtr);
     }
+}
+
+- (void)testHeapWalkerMemoryStability {
+    // 记录初始内存使用情况
+    struct task_basic_info t_info;
+    mach_msg_type_number_t t_info_count = TASK_BASIC_INFO_COUNT;
+    task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&t_info, &t_info_count);
+    vm_size_t initialMemory = t_info.resident_size;
+    
+    // 记录初始扫描结果
+    ZQTCreateCustomMallocZone();
+    ZQT::HeapWalker *initialWalker = new ZQT::HeapWalker();
+    initialWalker->scanHeap();
+    size_t initialNodeCount = initialWalker->getNodes().size();
+    NSLog(@"初始节点数量: %zu 内存使用： %ld", initialNodeCount,initialMemory);
+    delete initialWalker;
+    ZQTDestroyCustomMallocZone();
+    
+    // 执行多次创建、扫描、销毁操作
+    const int iterations = 5;
+    NSMutableArray<NSNumber *> *memorySizes = [NSMutableArray array];
+    NSMutableArray<NSNumber *> *nodeCounts = [NSMutableArray array];
+    
+    for (int i = 0; i < iterations; i++) {
+        // 创建 zone
+        ZQTCreateCustomMallocZone();
+        
+        // 创建新的 walker 实例
+        ZQT::HeapWalker *walker = new ZQT::HeapWalker();
+        
+        // 分配一些测试内存
+        void* testPtr = malloc_zone_malloc(ZQTCustomMallocZone, 1024);
+        XCTAssertNotEqual(testPtr, nullptr, @"测试内存分配应该成功");
+        
+        // 扫描堆
+        walker->scanHeap();
+        
+        // 记录内存使用情况
+        task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&t_info, &t_info_count);
+        [memorySizes addObject:@(t_info.resident_size)];
+        
+        // 记录节点数量
+        size_t currentCount = walker->getNodes().size();
+        [nodeCounts addObject:@(currentCount)];
+        NSLog(@"第 %d 次迭代节点数量: %zu", i + 1, currentCount);
+        
+        // 清理 walker
+        delete walker;
+        
+        // 销毁 zone
+        ZQTDestroyCustomMallocZone();
+    }
+    
+    // 验证内存使用情况
+    for (int i = 1; i < memorySizes.count; i++) {
+        NSNumber *prevSize = memorySizes[i-1];
+        NSNumber *currSize = memorySizes[i];
+        double memoryGrowth = [currSize doubleValue] - [prevSize doubleValue];
+        NSLog(@"第 %d 次迭代的内存增长:%f - %f = %f bytes", i,[currSize doubleValue],[prevSize doubleValue], memoryGrowth);
+        XCTAssertLessThanOrEqual(memoryGrowth, 1024 * 1024,
+            @"每次迭代的内存增长不应超过1MB");
+    }
+    
+    // 验证节点数量
+    for (int i = 1; i < nodeCounts.count; i++) {
+        NSNumber *prevCount = nodeCounts[i-1];
+        NSNumber *currCount = nodeCounts[i];
+        NSInteger countDiff = [currCount integerValue] - [prevCount integerValue];
+        NSLog(@"第 %d 次迭代的节点数量变化: %ld", i, countDiff);
+        XCTAssertEqual([currCount integerValue], [prevCount integerValue], 
+            @"每次迭代扫描到的节点数量应该相同");
+    }
+    
+    // 验证最终内存使用情况
+    task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&t_info, &t_info_count);
+    double finalMemoryGrowth = t_info.resident_size - initialMemory;
+    NSLog(@"最终内存增长: %f bytes", finalMemoryGrowth);
+    XCTAssertLessThanOrEqual(finalMemoryGrowth, 1024 * 1024, 
+        @"最终内存使用不应比初始状态增加超过1MB");
 }
 
 @end 

@@ -1,0 +1,41 @@
+{
+  "configurations" : [
+    {
+      "id" : "097A6DD4-BC71-428E-BC8E-05798BDE69B4",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ZqtOOMDetector.xcodeproj",
+      "identifier" : "8CE7D2412DCF7B38009B3EDE",
+      "name" : "ZqtOOMDetector"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "StartTest",
+        "StartTest\/testExample",
+        "StartTest\/testPerformanceExample",
+        "ZQTVMRegionWalkerTests",
+        "ZQTVMRegionWalkerTests\/testVMRegionWalkerClear",
+        "ZQTVMRegionWalkerTests\/testVMRegionWalkerInitialization",
+        "ZQTVMRegionWalkerTests\/testVMRegionWalkerInvalidTask",
+        "ZQTVMRegionWalkerTests\/testVMRegionWalkerMallocRegions",
+        "ZQTVMRegionWalkerTests\/testVMRegionWalkerMoveSemantics",
+        "ZQTVMRegionWalkerTests\/testVMRegionWalkerScan"
+      ],
+      "target" : {
+        "containerPath" : "container:ZqtOOMDetector.xcodeproj",
+        "identifier" : "8CE7D2C02DD19345009B3EDE",
+        "name" : "ZqtOOMDetectorTests"
+      }
+    }
+  ],
+  "version" : 1
+}
