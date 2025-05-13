@@ -62,9 +62,13 @@ struct MemoryNode {
     enum class MemoryNodeType:int {
         Unknown = 0,
         Obj = 1,
-        PointerTagged = 2,
-        Cpp = 3,
+        CFObj = 2,
+        PointerTagged = 3,
+        Cpp = 4,
+        Malloc = 5,
     };
+    Class objectClass;
+    const char * name;
     uintptr_t address;
     size_t size;
     MemoryNodeType type;
@@ -77,6 +81,8 @@ struct MemoryNode {
         , size(other.size)
         , type(other.type)
         , references(other.references)
+        , objectClass(other.objectClass)
+        , name(other.name)
     {
         if (!is_from_custom_zone(this)) {
             throw std::runtime_error("Copy allocation not from custom zone");
@@ -89,7 +95,8 @@ struct MemoryNode {
             size = other.size;
             type = other.type;
             references = other.references;
-            
+            name = other.name;
+            objectClass = other.objectClass;
             if (!is_from_custom_zone(this)) {
                 throw std::runtime_error("Copy assignment not from custom zone");
             }
@@ -102,6 +109,8 @@ struct MemoryNode {
         , size(other.size)
         , type(std::move(other.type))
         , references(std::move(other.references))
+        , objectClass(other.objectClass)
+        , name(other.name)
     {}
     
     MemoryNode& operator=(MemoryNode&& other) noexcept {
@@ -110,6 +119,8 @@ struct MemoryNode {
             size = other.size;
             type = std::move(other.type);
             references = std::move(other.references);
+            name = other.name;
+            objectClass = other.objectClass;
         }
         return *this;
     }

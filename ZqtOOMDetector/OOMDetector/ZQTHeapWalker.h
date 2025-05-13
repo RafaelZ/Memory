@@ -3,14 +3,14 @@
 
 #include "ZQTMemoryTypes.hpp"
 #include <mach/mach.h>
+#include "ZQTObjCIdentifierStrategy.h"
 
 namespace ZQT {
 
 class HeapWalker {
 public:
     static constexpr size_t INITIAL_CAPACITY = 1024;
-    
-    HeapWalker();
+    HeapWalker(ObjCIdentifierStrategy* strategy = nullptr);
     ~HeapWalker();
     
     // 禁用拷贝
@@ -56,7 +56,8 @@ private:
     CustomMap<uintptr_t, MemoryNode> nodes;
     CustomVector<MemoryNode*> nodePtrs;
     MemoryTracker tracker;
-    
+    ObjCIdentifierStrategy* objcIdentifierStrategy;
+
     bool is_from_custom_zone(void* ptr) {
         if (!ptr) return false;
         return malloc_zone_from_ptr(ptr) == ZQTCustomMallocZone;

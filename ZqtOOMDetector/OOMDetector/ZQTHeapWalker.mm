@@ -6,12 +6,18 @@
 
 namespace ZQT {
 
-HeapWalker::HeapWalker() {
+
+
+HeapWalker::HeapWalker(ObjCIdentifierStrategy* strategy) {
+    if (strategy) {
+        objcIdentifierStrategy = strategy;
+    }
     nodes.reserve(INITIAL_CAPACITY);
     nodePtrs.reserve(INITIAL_CAPACITY);
 }
 
 HeapWalker::~HeapWalker() {
+    delete objcIdentifierStrategy;
     clear();
 }
 
@@ -55,7 +61,7 @@ void HeapWalker::scanHeap() {
     clear();
     nodes.reserve(INITIAL_CAPACITY);
     nodePtrs.reserve(INITIAL_CAPACITY);
-    
+    objcIdentifierStrategy->updateClassList();
     // 扫描所有 malloc zones
     unsigned int count;
     vm_address_t *zones = NULL;
@@ -67,6 +73,11 @@ void HeapWalker::scanHeap() {
     for (unsigned int i = 0; i < count; i++) {
         malloc_zone_t *zone = (malloc_zone_t *)zones[i];
         if (zone) {
+            // 检查是否是自定义 zone
+            const char* zoneName = malloc_get_zone_name(zone);
+            if (zoneName && strcmp(zoneName, ZQTCustomMallocZoneName) == 0) {
+                continue; // 跳过自定义 zone
+            }
             scanMallocZone(zone);
         }
     }
@@ -74,12 +85,6 @@ void HeapWalker::scanHeap() {
 
 void HeapWalker::scanMallocZone(malloc_zone_t* zone) {
     if (!zone || !zone->introspect) {
-        return;
-    }
-    
-    // 使用字符串比较来判断 zone
-    const char* zoneName = malloc_get_zone_name(zone);
-    if (zoneName && strcmp(zoneName, ZQTCustomMallocZoneName) == 0) {
         return;
     }
     
@@ -115,11 +120,13 @@ void HeapWalker::scanMallocZone(malloc_zone_t* zone) {
 }
 
 void HeapWalker::scanVMRange(vm_address_t address, vm_size_t size) {
-    // 创建新节点
-    auto node = make_unique_custom<MemoryNode>();
-    node->address = address;
-    node->size = size;
-        
+    MemoryNode *node = nullptr;
+    if (objcIdentifierStrategy != nullptr) {
+        node = objcIdentifierStrategy->identifyObjectAtAddress(address, size);
+    }
+    if (node == nullptr) {
+        return;
+    }
     // 插入节点
     nodes[address] = std::move(*node);
     nodePtrs.push_back(&nodes[address]);
@@ -127,6 +134,7 @@ void HeapWalker::scanVMRange(vm_address_t address, vm_size_t size) {
     // 记录内存使用
     tracker.record_allocation(sizeof(MemoryNode));
 }
+
 
 void HeapWalker::clear() {
     nodes.clear();

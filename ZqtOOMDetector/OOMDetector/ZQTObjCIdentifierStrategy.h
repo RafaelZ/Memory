@@ -23,6 +23,9 @@ public:
     // 实现基类接口
     MemoryNode* identifyObjectAtAddress(vm_address_t address, vm_size_t size) override;
     
+    // 更新类列表
+    void updateClassList();
+    
 private:
     void initializeClassList();
     bool isTaggedPointer(const void* ptr) const;
@@ -36,3 +39,4 @@ private:
 } // namespace ZQT
 
 #endif /* ZQTObjCIdentifierStrategy_h */ 
+ 

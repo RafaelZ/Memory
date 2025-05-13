@@ -35,9 +35,9 @@
     if (self) {
         _nodes = [[NSMutableDictionary alloc] init];
         _edges = [[NSMutableArray alloc] init];
-        _heapWalker = new ZQT::HeapWalker();
-        _vmRegionWalker = new ZQT::VMRegionWalker();
         _objCIdentifier = new ZQT::ObjCIdentifierStrategy();
+        _heapWalker = new ZQT::HeapWalker(_objCIdentifier);
+        _vmRegionWalker = new ZQT::VMRegionWalker();
         _referenceTracer = [[ZQTReferenceTracer alloc] init];
         _isAnalyzing = NO;
     }

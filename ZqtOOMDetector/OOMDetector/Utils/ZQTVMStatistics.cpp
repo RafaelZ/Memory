@@ -141,3 +141,25 @@ bool vm_region_is_malloc_usertag(unsigned int user_tag) {
     return g_malloc_user_tags.find(user_tag) != g_malloc_user_tags.end();
 }
 
+const char * zqt_objc_tag_to_string(ZQTObjcTag tag) {
+    switch (tag) {
+        case ZQT_OBJC_TAG_NSAtom:
+            return "OBJC_TAG_NSAtom";
+        case ZQT_OBJC_TAG_1:
+            return "OBJC_TAG_1";
+        case ZQT_OBJC_TAG_NSString:
+            return "OBJC_TAG_NSString";
+        case ZQT_OBJC_TAG_NSNumber:
+            return "OBJC_TAG_NSNumber";
+        case ZQT_OBJC_TAG_NSIndexPath:
+            return "OBJC_TAG_NSIndexPath";
+        case ZQT_OBJC_TAG_NSManagedObjectID:
+            return "OBJC_TAG_NSManagedObjectID";
+        case ZQT_OBJC_TAG_NSDate:
+            return "OBJC_TAG_NSDate";
+        case ZQT_OBJC_TAG_7:
+            return "OBJC_TAG_7";
+        default:
+            return "Unknown ObjcTag";
+    }
+}

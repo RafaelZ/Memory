@@ -19,7 +19,7 @@ static void __ZQTAllocatorCustomDeallocate(void *ptr, void *info) {
 void ZQTCreateCustomMallocZone(void) {
     if (ZQTCustomMallocZone == nullptr) {
         // 增加初始大小，减少重新分配的次数
-        ZQTCustomMallocZone = malloc_create_zone(1024*1024, MALLOC_PTR_IN_USE_RANGE_TYPE);
+        ZQTCustomMallocZone = malloc_create_zone(1024*1024*1024, MALLOC_PTR_IN_USE_RANGE_TYPE);
         malloc_set_zone_name(ZQTCustomMallocZone, ZQTCustomMallocZoneName);
         
         printf("[ZQTOOMDetector][zone] create zone:%zx\n", (uintptr_t)ZQTCustomMallocZone);
