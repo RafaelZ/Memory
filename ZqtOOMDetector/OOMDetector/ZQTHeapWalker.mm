@@ -1,8 +1,9 @@
 #include "ZQTHeapWalker.h"
 #include <mach/mach.h>
 #include <malloc/malloc.h>
+#include "ZQTCFStringHelper.h"
 #import "FLEXObjcInternal.h"
-
+#include "CppClassInfo.h"
 
 namespace ZQT {
 
@@ -42,6 +43,14 @@ kern_return_t memory_reader(task_t task, vm_address_t remote_address, vm_size_t 
     return KERN_SUCCESS;
 }
 
+void range_callback(task_t task, void *context, unsigned type, vm_range_t *ranges, unsigned rangeCount)
+{
+    int temp = 0;
+    if (context != nullptr) {
+        temp = *(int *)context;
+    }
+}
+
 // 将 range_callback 改为静态成员函数
 void HeapWalker::range_callback(task_t task, void *context, unsigned type, vm_range_t *ranges, unsigned rangeCount)
 {
@@ -52,6 +61,23 @@ void HeapWalker::range_callback(task_t task, void *context, unsigned type, vm_ra
         vm_range_t range = ranges[i];
         if (range.address && range.size > 0) {
             walker->scanVMRange(range.address, range.size);
+        }
+    }
+}
+
+void HeapWalker::processNodes() {
+    for (int i = 0; i < nodePtrs.size();i++) {
+        MemoryNode *node = nodePtrs[i];
+        if (node->type == MemoryNodeType::CFObj) {
+            CFTypeID cftypeid = CFGetTypeID((CFTypeRef)node->address);
+            try {
+                CFStringRef cfClassName = CFCopyTypeIDDescription(cftypeid);
+                std::string name = ZQT_CFStringToStdString(cfClassName);
+                node->name = name;
+            } catch (...) {
+                node->name = "__NSCFUnknowType";
+                printf("catch exception");
+            }
         }
     }
 }
@@ -109,7 +135,7 @@ void HeapWalker::scanMallocZone(malloc_zone_t* zone) {
                                 MALLOC_PTR_IN_USE_RANGE_TYPE,
                                 (vm_address_t)zone,
                                 memory_reader,
-                                &HeapWalker::range_callback);  // 使用静态成员函数
+                                &(range_callback));  // 使用静态成员函数
     } @catch (NSException *exception) {
         // 处理可能的异常
         NSLog(@"Exception while scanning zone: %@", exception);

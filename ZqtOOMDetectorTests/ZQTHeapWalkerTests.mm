@@ -271,6 +271,7 @@
         walker->scanHeap();
         const auto& nodes = walker->getNodes();
         
+        NSLog(@"node size %ld ",nodes.size());
         // 验证结果
         bool foundCFString = false;
         bool foundNSObject = false;
@@ -353,6 +354,7 @@
 
         // 扫描堆
         walker->scanHeap();
+        walker->processNodes();
         
         // 记录内存使用情况
         task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&t_info, &t_info_count);
@@ -520,8 +522,11 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
         ZQTCreateCustomMallocZone();
         
         // 创建新的 walker 实例
-        ZQT::HeapWalker *walker = new ZQT::HeapWalker();
+        ZQT::ObjCIdentifierStrategy *abc = new ZQT::ObjCIdentifierStrategy();
+        NSLog(@"%s",__FUNCTION__);
         
+        ZQT::HeapWalker * walker = new ZQT::HeapWalker(abc);
+
         // 使用不同的内存分配方式
         const size_t largeSize = 1024 * 1024 * (50 + i * 10); // 每次增加10MB
         void* testPtr = NULL;
@@ -535,9 +540,26 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
         
         // 扫描堆
         walker->scanHeap();
-        
+        walker->processNodes();
         // 记录节点数量和详细信息
         size_t currentCount = walker->getNodes().size();
+        
+        // 随机打印几个CFObj类型的节点
+        const auto& nodes = walker->getNodes();
+        int cfObjCount = 0;
+        for (const auto& pair : nodes) {
+            const auto& node = pair.second;
+            if (node.type == ZQT::MemoryNodeType::Cpp) {
+                NSLog(@"CFObj节点 - 地址: %p, 大小: %zu, 名称: %s", 
+                      (void*)node.address, 
+                      node.size,
+                      node.name.c_str());
+                cfObjCount++;
+                if (cfObjCount >= 5) { // 最多打印5个
+                    break;
+                }
+            }
+        }
         
         // 清理测试内存
         if (testPtr) {

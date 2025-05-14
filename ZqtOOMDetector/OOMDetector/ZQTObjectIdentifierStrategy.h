@@ -1,7 +1,7 @@
 #ifndef ZQTObjectIdentifierStrategy_h
 #define ZQTObjectIdentifierStrategy_h
 
-#include "ZQTMemoryTypes.hpp"
+#include "MemoryNode.h"
 #include <objc/runtime.h>
 
 namespace ZQT {

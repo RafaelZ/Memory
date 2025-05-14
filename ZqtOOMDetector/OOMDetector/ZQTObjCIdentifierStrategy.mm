@@ -2,6 +2,7 @@
 #include <objc/runtime.h>
 #include "ZQTCustomMallocZone.h"
 #include "ZQTVMStatistics.hpp"
+#include <set>
 // ARM64 架构的 Tagged Pointer 标记
 #define OBJC_TAG_MASK (1ULL << 63)
 #define OBJC_TAG_INDEX_SHIFT 60
@@ -14,6 +15,18 @@ extern uint64_t objc_debug_isa_class_mask WEAK_IMPORT_ATTRIBUTE;
 #endif
 
 namespace ZQT {
+
+static std::set<std::string> excludeClassName = {
+    //    "RBSAssertionIdentifier",
+    //    "__NSCFString",
+    //    "__NSCFData",
+    //    "__NSCFType",
+    "OS_xpc_connection",
+    "__NSXPCInterfaceProxy__UIKeyboardArbitration",
+    "RBSAssertionIdentifier",
+    "RBSInheritance",
+    "__NSAtom"
+};
 
 typedef struct objc_structure_mock {
     Class isa;
@@ -41,17 +54,29 @@ ObjCIdentifierStrategy& ObjCIdentifierStrategy::operator=(ObjCIdentifierStrategy
     return *this;
 }
 
+
+
 void ObjCIdentifierStrategy::initializeClassList() {
     unsigned int count;
     Class *classes = objc_copyClassList(&count);
     if (classes) {
         allClasses.reserve(count);
         for (unsigned int i = 0; i < count; i++) {
-            allClasses.push_back(classes[i]);
-            classSet.insert(classes[i]);
+             Class classi = classes[i];
+            if (classi) {
+                const char *namei = class_getName(classi);
+                std::string namestr = std::string(namei);
+                if (excludeClassName.find(namestr) != excludeClassName.end()) {
+                    continue;
+                }
+
+                allClasses.push_back(classi);
+                classSet.insert(classi);
+            }
         }
         free(classes);
     }
+    cppIdentifier.scanForCppClasses();
 }
 
 void ObjCIdentifierStrategy::updateClassList() {
@@ -60,13 +85,16 @@ void ObjCIdentifierStrategy::updateClassList() {
     classSet.clear();
     Class *classes = objc_copyClassList(&count);
     if (classes) {
-        allClasses.reserve(count);
+//        allClasses.reserve(count);
         for (unsigned int i = 0; i < count; i++) {
-            allClasses.push_back(classes[i]);
-            classSet.insert(classes[i]);
+            if (classes[i]) {
+//                allClasses.push_back(classes[i]);
+                classSet.insert(classes[i]);
+            }
         }
         free(classes);
     }
+    printf("打印 classSet size:%ld",classSet.size());
 }
 
 bool ObjCIdentifierStrategy::isTaggedPointer(const void* ptr) const {
@@ -112,33 +140,25 @@ MemoryNode* ObjCIdentifierStrategy::identifyObjectAtAddress(vm_address_t address
     node->size = size;
 
     if (isTaggedPointer(ptr)) {
-        node->type = MemoryNode::MemoryNodeType::PointerTagged;
+        node->type = MemoryNodeType::PointerTagged;
         node->name = zqt_objc_tag_to_string(getTaggedPointerType(ptr));
     } else {
         if (isValidClass(objectClass)) {
             const char * className = class_getName(objectClass);
             if (strcmp(className, "__NSCFType") == 0) {
-                node->type = MemoryNode::MemoryNodeType::CFObj;
-                CFTypeID cftypeid = CFGetTypeID((CFTypeRef)rawMemoryObject);
-                try {
-                    CFStringRef cfClassName = CFCopyTypeIDDescription(cftypeid);
-                    node->name = (char *)cfClassName;
-                } catch (...) {
-                    node->name = "__NSCFUnknowType";
-                    printf("catch exception");
-                }
+                node->type = MemoryNodeType::CFObj;
+                //‼️遍历过程中不能获取CFType，会导致锁崩溃
             } else {
-                node->type = MemoryNode::MemoryNodeType::Obj;
+                node->type = MemoryNodeType::Obj;
             }
             node->objectClass = objectClass;
-            
-        }
-//        else if (isCppClass) {
-//          //TODO: 判断C++类型
-//        }
-        else {
-            if (k_enum_pure_block) {
-                node->type = MemoryNode::MemoryNodeType::Malloc;
+        } else {
+            CustomString stringName;
+            if (cppIdentifier.isInstanceOfKnownCppClass((void *)address, stringName)) {
+                node->type = MemoryNodeType::Cpp;
+                node->name = stringName;
+            } else if (k_enum_pure_block) {
+                node->type = MemoryNodeType::Malloc;
                 node->name = "malloc";
             }
         }

@@ -22,6 +22,7 @@ public:
     HeapWalker& operator=(HeapWalker&& other) noexcept;
     
     void scanHeap();
+    void processNodes();
     void clear();
     
     const CustomMap<uintptr_t, MemoryNode>& getNodes() const { return nodes; }
