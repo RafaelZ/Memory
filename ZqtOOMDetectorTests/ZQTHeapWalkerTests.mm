@@ -4,6 +4,7 @@
 #include <malloc/malloc.h>
 #include <objc/runtime.h>
 #include "ZQTObjCIdentifierStrategy.h"
+#include "ZqtCppTest.hpp"
 @interface ZQTHeapWalkerTests : XCTestCase
 
 @end
@@ -549,7 +550,7 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
         int cfObjCount = 0;
         for (const auto& pair : nodes) {
             const auto& node = pair.second;
-            if (node.type == ZQT::MemoryNodeType::Cpp) {
+            if (node.type == ZQT::MemoryNodeType::CFObj) {
                 NSLog(@"CFObj节点 - 地址: %p, 大小: %zu, 名称: %s",
                       (void*)node.address, 
                       node.size,
@@ -560,6 +561,22 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
                 }
             }
         }
+        
+        cfObjCount = 0;
+        for (const auto& pair : nodes) {
+            const auto& node = pair.second;
+            if (node.type == ZQT::MemoryNodeType::Cpp) {
+                NSLog(@"Cpp节点 - 地址: %p, 大小: %zu, 名称: %s",
+                      (void*)node.address,
+                      node.size,
+                      node.name.c_str());
+                cfObjCount++;
+                if (cfObjCount >= 5) { // 最多打印5个
+                    break;
+                }
+            }
+        }
+
         
         // 清理测试内存
         if (testPtr) {
@@ -595,11 +612,12 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
         // 等待一小段时间，让系统有机会清理
         [NSThread sleepForTimeInterval:1];
         
+        CreateAndUseTestClasses();
         [self simpleCountMallocNode];
         NSLog(@"start 总共count  %ld   customZone:%ld",_zqtNodeCounts,_zqtCustomZoneNodeCounts);
 
         // 执行多次创建、扫描、销毁操作
-        const int iterations = 5;  // 减少迭代次数，方便观察
+        const int iterations = 1;  // 减少迭代次数，方便观察
         
         NSInteger lastNodeCount = _zqtNodeCounts;
         for (int i = 0; i < iterations; i++) {

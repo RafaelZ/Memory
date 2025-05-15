@@ -19,16 +19,16 @@ public:
     void sayHello();
 };
 
-class Base {
+class BasePeple {
 public:
 
-    Base(int i) :baseI(i){};
+    BasePeple(int i) :baseI(i){};
 
     int getI(){ return baseI; }
 
     static void countI();
 
-    virtual ~Base();
+    virtual ~BasePeple();
 
     virtual void basePrint(void);
 
@@ -39,9 +39,9 @@ private:
     static int baseS;
 };
 
-class Male : public Base {
+class Male : public BasePeple {
 public:
-    Male(int i): Base(i){
+    Male(int i): BasePeple(i){
 
     };
     void sayHello();
@@ -51,10 +51,10 @@ public:
 };
 
 // 新增一个继承类，增加更多的虚函数测试
-class Female : public Base {
+class Female : public BasePeple {
 public:
-    Female(int i): Base(i), femaleName("Unknown") {}
-    Female(int i, const char* name): Base(i), femaleName(name) {}
+    Female(int i): BasePeple(i), femaleName("Unknown") {}
+    Female(int i, const char* name): BasePeple(i), femaleName(name) {}
     
     virtual ~Female();
     

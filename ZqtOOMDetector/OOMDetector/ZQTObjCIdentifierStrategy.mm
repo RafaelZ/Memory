@@ -25,7 +25,6 @@ static std::set<std::string> excludeClassName = {
     "__NSXPCInterfaceProxy__UIKeyboardArbitration",
     "RBSAssertionIdentifier",
     "RBSInheritance",
-    "__NSAtom"
 };
 
 typedef struct objc_structure_mock {

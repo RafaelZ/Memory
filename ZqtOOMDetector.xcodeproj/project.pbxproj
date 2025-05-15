@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		04CF6FC96B7B39968AE66F2B /* Pods_ZqtOOMDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD93B1B89163510CD19A1543 /* Pods_ZqtOOMDetector.framework */; };
+		BAACAE9CB0D31B173A5A7588 /* Pods_ZqtOOMDetectorTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F318B297885B36F36783FD /* Pods_ZqtOOMDetectorTests.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		8CE7D2C52DD19345009B3EDE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -17,9 +22,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E99ADEB2D146ADF044EFDA1 /* Pods-ZqtOOMDetector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZqtOOMDetector.release.xcconfig"; path = "Target Support Files/Pods-ZqtOOMDetector/Pods-ZqtOOMDetector.release.xcconfig"; sourceTree = "<group>"; };
+		69FE2770E452F6E307CDC875 /* Pods-ZqtOOMDetectorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZqtOOMDetectorTests.debug.xcconfig"; path = "Target Support Files/Pods-ZqtOOMDetectorTests/Pods-ZqtOOMDetectorTests.debug.xcconfig"; sourceTree = "<group>"; };
+		74F318B297885B36F36783FD /* Pods_ZqtOOMDetectorTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZqtOOMDetectorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CE7D2422DCF7B38009B3EDE /* ZqtOOMDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZqtOOMDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CE7D2C12DD19345009B3EDE /* ZqtOOMDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZqtOOMDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CE7D2D22DD1DBBA009B3EDE /* VmRegion.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = VmRegion.xctestplan; sourceTree = "<group>"; };
+		ACB8A214387AE0A89E13D409 /* Pods-ZqtOOMDetectorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZqtOOMDetectorTests.release.xcconfig"; path = "Target Support Files/Pods-ZqtOOMDetectorTests/Pods-ZqtOOMDetectorTests.release.xcconfig"; sourceTree = "<group>"; };
+		AD93B1B89163510CD19A1543 /* Pods_ZqtOOMDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZqtOOMDetector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFEAD4204670C35D3151B26E /* Pods-ZqtOOMDetector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZqtOOMDetector.debug.xcconfig"; path = "Target Support Files/Pods-ZqtOOMDetector/Pods-ZqtOOMDetector.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -53,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04CF6FC96B7B39968AE66F2B /* Pods_ZqtOOMDetector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +72,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAACAE9CB0D31B173A5A7588 /* Pods_ZqtOOMDetectorTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		668183025C13B6D2DBCB1FDD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DFEAD4204670C35D3151B26E /* Pods-ZqtOOMDetector.debug.xcconfig */,
+				0E99ADEB2D146ADF044EFDA1 /* Pods-ZqtOOMDetector.release.xcconfig */,
+				69FE2770E452F6E307CDC875 /* Pods-ZqtOOMDetectorTests.debug.xcconfig */,
+				ACB8A214387AE0A89E13D409 /* Pods-ZqtOOMDetectorTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8CE7D2392DCF7B38009B3EDE = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +97,8 @@
 				8CE7D2442DCF7B38009B3EDE /* ZqtOOMDetector */,
 				8CE7D2C22DD19345009B3EDE /* ZqtOOMDetectorTests */,
 				8CE7D2432DCF7B38009B3EDE /* Products */,
+				668183025C13B6D2DBCB1FDD /* Pods */,
+				FABC857DB7C59758ED291417 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +111,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		FABC857DB7C59758ED291417 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AD93B1B89163510CD19A1543 /* Pods_ZqtOOMDetector.framework */,
+				74F318B297885B36F36783FD /* Pods_ZqtOOMDetectorTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -92,6 +127,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8CE7D25A2DCF7B3D009B3EDE /* Build configuration list for PBXNativeTarget "ZqtOOMDetector" */;
 			buildPhases = (
+				827C9FD99E720A3E56E4B722 /* [CP] Check Pods Manifest.lock */,
 				8CE7D23E2DCF7B38009B3EDE /* Sources */,
 				8CE7D23F2DCF7B38009B3EDE /* Frameworks */,
 				8CE7D2402DCF7B38009B3EDE /* Resources */,
@@ -104,8 +140,6 @@
 				8CE7D2442DCF7B38009B3EDE /* ZqtOOMDetector */,
 			);
 			name = ZqtOOMDetector;
-			packageProductDependencies = (
-			);
 			productName = ZqtOOMDetector;
 			productReference = 8CE7D2422DCF7B38009B3EDE /* ZqtOOMDetector.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +148,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8CE7D2C92DD19345009B3EDE /* Build configuration list for PBXNativeTarget "ZqtOOMDetectorTests" */;
 			buildPhases = (
+				BDA1C2281E4E260CFBFF239A /* [CP] Check Pods Manifest.lock */,
 				8CE7D2BD2DD19345009B3EDE /* Sources */,
 				8CE7D2BE2DD19345009B3EDE /* Frameworks */,
 				8CE7D2BF2DD19345009B3EDE /* Resources */,
@@ -127,8 +162,6 @@
 				8CE7D2C22DD19345009B3EDE /* ZqtOOMDetectorTests */,
 			);
 			name = ZqtOOMDetectorTests;
-			packageProductDependencies = (
-			);
 			productName = ZqtOOMDetectorTests;
 			productReference = 8CE7D2C12DD19345009B3EDE /* ZqtOOMDetectorTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -188,6 +221,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		827C9FD99E720A3E56E4B722 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ZqtOOMDetector-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BDA1C2281E4E260CFBFF239A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ZqtOOMDetectorTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8CE7D23E2DCF7B38009B3EDE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -216,6 +296,7 @@
 /* Begin XCBuildConfiguration section */
 		8CE7D25B2DCF7B3D009B3EDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFEAD4204670C35D3151B26E /* Pods-ZqtOOMDetector.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -244,6 +325,7 @@
 		};
 		8CE7D25C2DCF7B3D009B3EDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E99ADEB2D146ADF044EFDA1 /* Pods-ZqtOOMDetector.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -328,6 +410,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-Wl,-keep_private_externs",
+				);
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -383,6 +469,10 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-Wl,-keep_private_externs",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -390,6 +480,7 @@
 		};
 		8CE7D2C72DD19345009B3EDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69FE2770E452F6E307CDC875 /* Pods-ZqtOOMDetectorTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -408,6 +499,7 @@
 		};
 		8CE7D2C82DD19345009B3EDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACB8A214387AE0A89E13D409 /* Pods-ZqtOOMDetectorTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

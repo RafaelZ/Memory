@@ -1,0 +1,601 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0673420D9C520FCA9BCC4A82B3546651 /* Pods-ZqtOOMDetector-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB95A1ABAD5736F464018B78A6AF36C /* Pods-ZqtOOMDetector-dummy.m */; };
+		31BE1538DB99D5DAEBCCC55B7BB1CBEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		A40AB9020546BA8AD36D2F3A6BB38123 /* Pods-ZqtOOMDetectorTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D21B4F72F580E4FE544DA859F369889C /* Pods-ZqtOOMDetectorTests-dummy.m */; };
+		C4A00C0FBC1F99CA7ACD292C7617B959 /* Pods-ZqtOOMDetector-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ABA4CDB19C9B9837D508163A379E3F06 /* Pods-ZqtOOMDetector-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C887333520BB768E5B58AF242DC17C59 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		DEA58B319F61E5D7DAE4714C685F3B25 /* Pods-ZqtOOMDetectorTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A7A00244E88610DD7FBFFB563348D9B /* Pods-ZqtOOMDetectorTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3D966392F343BF17374D298E3BBF077F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5E809497C84DF560174F8EFFA74E847;
+			remoteInfo = "Pods-ZqtOOMDetector";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03FD430AC5C26E7B6DEDD8641A1D66FA /* Pods-ZqtOOMDetectorTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZqtOOMDetectorTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		1CD8A5C05C8DC885ADB6349FED433754 /* Pods-ZqtOOMDetector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZqtOOMDetector.release.xcconfig"; sourceTree = "<group>"; };
+		1DAA1BB2FE4C401AAFF4A9DAE15E94D0 /* Pods-ZqtOOMDetector-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZqtOOMDetector-acknowledgements.markdown"; sourceTree = "<group>"; };
+		231E4AD1B5CFFD2A54DFAC170451F0DB /* Pods-ZqtOOMDetector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZqtOOMDetector.debug.xcconfig"; sourceTree = "<group>"; };
+		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		5BB95A1ABAD5736F464018B78A6AF36C /* Pods-ZqtOOMDetector-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZqtOOMDetector-dummy.m"; sourceTree = "<group>"; };
+		642299A3531D58B071AF7344E04C759D /* Pods-ZqtOOMDetectorTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZqtOOMDetectorTests-Info.plist"; sourceTree = "<group>"; };
+		655A9F76EB751D03B095162618804F94 /* Pods-ZqtOOMDetector-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZqtOOMDetector-Info.plist"; sourceTree = "<group>"; };
+		8A7A00244E88610DD7FBFFB563348D9B /* Pods-ZqtOOMDetectorTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZqtOOMDetectorTests-umbrella.h"; sourceTree = "<group>"; };
+		8CB1B6F402980ABBA1D63D2094C1AAAA /* Pods-ZqtOOMDetectorTests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ZqtOOMDetectorTests"; path = Pods_ZqtOOMDetectorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		951181C93A805BDEF1B8D2FE6B54A4E3 /* Pods-ZqtOOMDetector-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZqtOOMDetector-acknowledgements.plist"; sourceTree = "<group>"; };
+		96D76CD8AB5B1EE600234F36A8807074 /* Pods-ZqtOOMDetectorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZqtOOMDetectorTests.release.xcconfig"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A5BB1F17669132D6F75D20D5893F783D /* Pods-ZqtOOMDetector.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZqtOOMDetector.modulemap"; sourceTree = "<group>"; };
+		A6E7CC4E68FF976FE0B9624C4C5574E2 /* Pods-ZqtOOMDetectorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZqtOOMDetectorTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ABA4CDB19C9B9837D508163A379E3F06 /* Pods-ZqtOOMDetector-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZqtOOMDetector-umbrella.h"; sourceTree = "<group>"; };
+		B14FA1C9889BC50138EE86D62F0109DD /* Pods-ZqtOOMDetectorTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZqtOOMDetectorTests.modulemap"; sourceTree = "<group>"; };
+		D21B4F72F580E4FE544DA859F369889C /* Pods-ZqtOOMDetectorTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZqtOOMDetectorTests-dummy.m"; sourceTree = "<group>"; };
+		D38122F6E5810CCC71A6C4C1C06BA7B9 /* Pods-ZqtOOMDetectorTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZqtOOMDetectorTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		E08350FDEB07191DFB78FFF0C35F2444 /* Pods-ZqtOOMDetector */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ZqtOOMDetector"; path = Pods_ZqtOOMDetector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		07AC8BF53A0B5E0BABD3B38B48621FB0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C887333520BB768E5B58AF242DC17C59 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6E064DBDC4160A4F86CEBA502B4949A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31BE1538DB99D5DAEBCCC55B7BB1CBEF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		151F497C03EC3DE62324B11A7AAC437B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E08350FDEB07191DFB78FFF0C35F2444 /* Pods-ZqtOOMDetector */,
+				8CB1B6F402980ABBA1D63D2094C1AAAA /* Pods-ZqtOOMDetectorTests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		43B615A9FD06061F6BCB4D7E6D3702F4 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				78703517C203671B1B76A5FC6088C29B /* Pods-ZqtOOMDetector */,
+				626F89E82AF0CAB0750FA9C70C319848 /* Pods-ZqtOOMDetectorTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		626F89E82AF0CAB0750FA9C70C319848 /* Pods-ZqtOOMDetectorTests */ = {
+			isa = PBXGroup;
+			children = (
+				B14FA1C9889BC50138EE86D62F0109DD /* Pods-ZqtOOMDetectorTests.modulemap */,
+				03FD430AC5C26E7B6DEDD8641A1D66FA /* Pods-ZqtOOMDetectorTests-acknowledgements.markdown */,
+				D38122F6E5810CCC71A6C4C1C06BA7B9 /* Pods-ZqtOOMDetectorTests-acknowledgements.plist */,
+				D21B4F72F580E4FE544DA859F369889C /* Pods-ZqtOOMDetectorTests-dummy.m */,
+				642299A3531D58B071AF7344E04C759D /* Pods-ZqtOOMDetectorTests-Info.plist */,
+				8A7A00244E88610DD7FBFFB563348D9B /* Pods-ZqtOOMDetectorTests-umbrella.h */,
+				A6E7CC4E68FF976FE0B9624C4C5574E2 /* Pods-ZqtOOMDetectorTests.debug.xcconfig */,
+				96D76CD8AB5B1EE600234F36A8807074 /* Pods-ZqtOOMDetectorTests.release.xcconfig */,
+			);
+			name = "Pods-ZqtOOMDetectorTests";
+			path = "Target Support Files/Pods-ZqtOOMDetectorTests";
+			sourceTree = "<group>";
+		};
+		78703517C203671B1B76A5FC6088C29B /* Pods-ZqtOOMDetector */ = {
+			isa = PBXGroup;
+			children = (
+				A5BB1F17669132D6F75D20D5893F783D /* Pods-ZqtOOMDetector.modulemap */,
+				1DAA1BB2FE4C401AAFF4A9DAE15E94D0 /* Pods-ZqtOOMDetector-acknowledgements.markdown */,
+				951181C93A805BDEF1B8D2FE6B54A4E3 /* Pods-ZqtOOMDetector-acknowledgements.plist */,
+				5BB95A1ABAD5736F464018B78A6AF36C /* Pods-ZqtOOMDetector-dummy.m */,
+				655A9F76EB751D03B095162618804F94 /* Pods-ZqtOOMDetector-Info.plist */,
+				ABA4CDB19C9B9837D508163A379E3F06 /* Pods-ZqtOOMDetector-umbrella.h */,
+				231E4AD1B5CFFD2A54DFAC170451F0DB /* Pods-ZqtOOMDetector.debug.xcconfig */,
+				1CD8A5C05C8DC885ADB6349FED433754 /* Pods-ZqtOOMDetector.release.xcconfig */,
+			);
+			name = "Pods-ZqtOOMDetector";
+			path = "Target Support Files/Pods-ZqtOOMDetector";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				151F497C03EC3DE62324B11A7AAC437B /* Products */,
+				43B615A9FD06061F6BCB4D7E6D3702F4 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4801F62A6B08CD9B5410329F1A18FDE /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4801F62A6B08CD9B5410329F1A18FDE /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		02E8B1366E302C5250771297505A3DB2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEA58B319F61E5D7DAE4714C685F3B25 /* Pods-ZqtOOMDetectorTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3135C4EA4FCE0C2770E1BDDFEC2DC30A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4A00C0FBC1F99CA7ACD292C7617B959 /* Pods-ZqtOOMDetector-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F5E809497C84DF560174F8EFFA74E847 /* Pods-ZqtOOMDetector */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 540FFB2FB1882E1C713A16BA05506A41 /* Build configuration list for PBXNativeTarget "Pods-ZqtOOMDetector" */;
+			buildPhases = (
+				3135C4EA4FCE0C2770E1BDDFEC2DC30A /* Headers */,
+				A2F1262A32D0B9D21C512A84661AE959 /* Sources */,
+				07AC8BF53A0B5E0BABD3B38B48621FB0 /* Frameworks */,
+				1E1D72399C0AA992B8F8AF00FF3550BF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-ZqtOOMDetector";
+			productName = Pods_ZqtOOMDetector;
+			productReference = E08350FDEB07191DFB78FFF0C35F2444 /* Pods-ZqtOOMDetector */;
+			productType = "com.apple.product-type.framework";
+		};
+		FEA8A0C91DE41DBE19AA2D3F79CE7A00 /* Pods-ZqtOOMDetectorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACC5A82C2BD8FA31503DBD63CD43453F /* Build configuration list for PBXNativeTarget "Pods-ZqtOOMDetectorTests" */;
+			buildPhases = (
+				02E8B1366E302C5250771297505A3DB2 /* Headers */,
+				BCB460D89821E21986450AB3D6C380B0 /* Sources */,
+				A6E064DBDC4160A4F86CEBA502B4949A /* Frameworks */,
+				466CF3B93140084CA9BBDDCA833F7FD6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				749566EFC21536693DE979A21E5F044C /* PBXTargetDependency */,
+			);
+			name = "Pods-ZqtOOMDetectorTests";
+			productName = Pods_ZqtOOMDetectorTests;
+			productReference = 8CB1B6F402980ABBA1D63D2094C1AAAA /* Pods-ZqtOOMDetectorTests */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 16.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 151F497C03EC3DE62324B11A7AAC437B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F5E809497C84DF560174F8EFFA74E847 /* Pods-ZqtOOMDetector */,
+				FEA8A0C91DE41DBE19AA2D3F79CE7A00 /* Pods-ZqtOOMDetectorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1E1D72399C0AA992B8F8AF00FF3550BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		466CF3B93140084CA9BBDDCA833F7FD6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A2F1262A32D0B9D21C512A84661AE959 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0673420D9C520FCA9BCC4A82B3546651 /* Pods-ZqtOOMDetector-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCB460D89821E21986450AB3D6C380B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A40AB9020546BA8AD36D2F3A6BB38123 /* Pods-ZqtOOMDetectorTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		749566EFC21536693DE979A21E5F044C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-ZqtOOMDetector";
+			target = F5E809497C84DF560174F8EFFA74E847 /* Pods-ZqtOOMDetector */;
+			targetProxy = 3D966392F343BF17374D298E3BBF077F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		09DE0C48BF4511565030428383979FEC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 231E4AD1B5CFFD2A54DFAC170451F0DB /* Pods-ZqtOOMDetector.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZqtOOMDetector/Pods-ZqtOOMDetector-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZqtOOMDetector/Pods-ZqtOOMDetector.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3DCD0478C36B213E7747BA540EF05AEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		5A2565394FF956095D0A75865A9A4818 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6E7CC4E68FF976FE0B9624C4C5574E2 /* Pods-ZqtOOMDetectorTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZqtOOMDetectorTests/Pods-ZqtOOMDetectorTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZqtOOMDetectorTests/Pods-ZqtOOMDetectorTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8120A5CC88B4096B3320CF54E6E96EAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96D76CD8AB5B1EE600234F36A8807074 /* Pods-ZqtOOMDetectorTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZqtOOMDetectorTests/Pods-ZqtOOMDetectorTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZqtOOMDetectorTests/Pods-ZqtOOMDetectorTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9BA5E8319BA2C7A8DB4CA5DE1DE3086D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		F517DC3F82DD5A5FCCC090E276926F00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CD8A5C05C8DC885ADB6349FED433754 /* Pods-ZqtOOMDetector.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZqtOOMDetector/Pods-ZqtOOMDetector-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZqtOOMDetector/Pods-ZqtOOMDetector.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BA5E8319BA2C7A8DB4CA5DE1DE3086D /* Debug */,
+				3DCD0478C36B213E7747BA540EF05AEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		540FFB2FB1882E1C713A16BA05506A41 /* Build configuration list for PBXNativeTarget "Pods-ZqtOOMDetector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09DE0C48BF4511565030428383979FEC /* Debug */,
+				F517DC3F82DD5A5FCCC090E276926F00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACC5A82C2BD8FA31503DBD63CD43453F /* Build configuration list for PBXNativeTarget "Pods-ZqtOOMDetectorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A2565394FF956095D0A75865A9A4818 /* Debug */,
+				8120A5CC88B4096B3320CF54E6E96EAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

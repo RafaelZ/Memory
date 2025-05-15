@@ -9,7 +9,7 @@
 #include <iostream>
 
 // 静态成员变量定义
-int Base::baseS = 0;
+int BasePeple::baseS = 0;
 
 // Human类方法实现
 void Human::sayHello() {
@@ -17,16 +17,16 @@ void Human::sayHello() {
 }
 
 // Base类方法实现
-Base::~Base() {
+BasePeple::~BasePeple() {
     std::cout << "Base destructor called" << std::endl;
 }
 
-void Base::countI() {
+void BasePeple::countI() {
     baseS++;
     std::cout << "Static count: " << baseS << std::endl;
 }
 
-void Base::basePrint(void) {
+void BasePeple::basePrint(void) {
     std::cout << "Base::basePrint() - baseI = " << baseI << std::endl;
 }
 
@@ -60,7 +60,7 @@ void CreateAndUseTestClasses() {
     human.sex = 1;
     human.sayHello();
     
-    Base* base = new Base(100);
+    BasePeple* base = new BasePeple(100);
     base->basePrint();
     
     Male* male = new Male(200);
@@ -79,12 +79,12 @@ void CreateAndUseTestClasses() {
     std::cout << "Female类型: " << typeid(*female).name() << std::endl;
     
     // 多态测试
-    Base* polymorphic_base = male;
+    BasePeple* polymorphic_base = male;
     std::cout << "多态Base实际类型: " << typeid(*polymorphic_base).name() << std::endl;
     polymorphic_base->basePrint();
     
     // 释放内存
-    delete base;
-    delete male;
-    delete female;
+//    delete base;
+//    delete male;
+//    delete female;
 }
