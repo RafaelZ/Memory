@@ -8,7 +8,8 @@
 #import "ViewController.h"
 #include "ZQTHeapWalker.h"
 #import <malloc/malloc.h>
-
+#include "ZqtCppTest.hpp"
+#include <iostream>
 @interface ViewController ()
 
 @end
@@ -32,6 +33,7 @@ size_t getUsedMemory(void) {
         [self simpleCountMallocNode];
         NSLog(@"start 总共count  %ld   customZone:%ld",_zqtNodeCounts,_zqtCustomZoneNodeCounts);
     });
+    CreateAndUseTestClasses();
 //    // Do any additional setup after loading the view.
 //
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

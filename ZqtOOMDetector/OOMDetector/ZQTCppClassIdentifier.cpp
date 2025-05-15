@@ -45,13 +45,28 @@ CppClassIdentifier::CppClassIdentifier() {
 bool CppClassIdentifier::initializeImageInfo() {
     if (imageBaseAddress_ != 0) return true; // 已经初始化过了
 
+    uint32_t count = _dyld_image_count();
+    int64_t exeIndex = -1;
+    for (uint32_t i = 0; i< count;i++) {
+        const mach_header* header = _dyld_get_image_header(i);
+        if (header->filetype == MH_EXECUTE) {
+            exeIndex = i;
+            break;;
+        }
+    }
+    if (exeIndex == -1) {
+        return false;
+    }
+    
     // 获取主可执行文件的头部 (映像索引为0)
-    const mach_header* header = _dyld_get_image_header(0);
+    uint32_t index = (uint32_t)exeIndex;
+    const mach_header* header = _dyld_get_image_header(index);
     if (!header) {
         // std::cerr << "CppClassIdentifier: 未能获取主映像头部。" << std::endl;
         return false;
     }
 
+    
     // 确保是64位头部，因为iOS是64位的
     if (header->magic != MH_MAGIC_64 && header->magic != MH_CIGAM_64) {
         // std::cerr << "CppClassIdentifier: 不是64位 Mach-O 头部。" << std::endl;
@@ -60,7 +75,7 @@ bool CppClassIdentifier::initializeImageInfo() {
     const mach_header_64* header64 = (const mach_header_64*)header;
 
     imageBaseAddress_ = (uintptr_t)header64;
-    imageSlide_ = _dyld_get_image_vmaddr_slide(0);
+    imageSlide_ = _dyld_get_image_vmaddr_slide(index);
 
     uintptr_t current_cmd_address = imageBaseAddress_ + sizeof(mach_header_64);
 
@@ -68,6 +83,7 @@ bool CppClassIdentifier::initializeImageInfo() {
     const std::string SECT_CONST_STR = "__const";
     const std::string SECT_CSTRING_STR = "__cstring";
     const std::string SECT_TEXT_STR = "__text";
+    const std::string SEG__DATA_CONST_STR = "__DATA_CONST";
     // SEG_TEXT 和 SEG_DATA 宏通常是可用的，如果它们也出问题，可以类似地替换
     // const std::string SEG_TEXT_STR = "__TEXT";
     // const std::string SEG_DATA_STR = "__DATA";
@@ -79,23 +95,24 @@ bool CppClassIdentifier::initializeImageInfo() {
         if (lc->cmd == LC_SEGMENT_64) {
             const segment_command_64* seg_cmd = (const segment_command_64*)lc;
             // std::cout << "Segment: " << seg_cmd->segname << std::endl; // 段名
-
+            
             uintptr_t section_ptr = (uintptr_t)seg_cmd + sizeof(segment_command_64);
             for (uint32_t j = 0; j < seg_cmd->nsects; ++j) {
                 const section_64* sect = (const section_64*)section_ptr;
                 uintptr_t section_start_addr = sect->addr + imageSlide_; // 加上ASLR偏移
                 uintptr_t section_end_addr = section_start_addr + sect->size;
-
+                
                 std::string segName(seg_cmd->segname, strnlen(seg_cmd->segname, 16));
                 std::string sectName(sect->sectname, strnlen(sect->sectname, 16));
                 
                 // std::cout << "  Section: " << segName << "," << sectName
                 //           << " Addr: 0x" << std::hex << section_start_addr
                 //           << " Size: 0x" << sect->size << std::dec << std::endl; // Section信息
-
+                
                 // 使用字符串字面量进行比较，而不是依赖可能未定义的宏
                 if ((segName == SEG_TEXT && sectName == SECT_CONST_STR) || // TEXT段中的常量
-                    (segName == SEG_DATA && sectName == SECT_CONST_STR)) { // DATA段中的常量 (例如 __DATA_CONST)
+                    (segName == SEG_DATA && sectName == SECT_CONST_STR) ||
+                    (segName == SEG__DATA_CONST_STR && sectName == SECT_CONST_STR)) { // DATA段中的常量 (例如 __DATA_CONST)
                     auto section = make_unique_custom<SectionRange>(section_start_addr, section_end_addr, segName.c_str(), sectName.c_str());
                     constSections_.push_back(*section);
                 } else if (segName == SEG_TEXT && sectName == SECT_CSTRING_STR) { // C字符串

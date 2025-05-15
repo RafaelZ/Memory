@@ -537,7 +537,7 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
                 
         // 填充内存
         memset(testPtr, 0xAA, largeSize);
-        
+        NSLog(@"cpp 类数量 %ld",abc->cppIdentifier.getKnownCppClasses().size());
         // 扫描堆
         walker->scanHeap();
         walker->processNodes();
@@ -550,7 +550,7 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
         for (const auto& pair : nodes) {
             const auto& node = pair.second;
             if (node.type == ZQT::MemoryNodeType::Cpp) {
-                NSLog(@"CFObj节点 - 地址: %p, 大小: %zu, 名称: %s", 
+                NSLog(@"CFObj节点 - 地址: %p, 大小: %zu, 名称: %s",
                       (void*)node.address, 
                       node.size,
                       node.name.c_str());

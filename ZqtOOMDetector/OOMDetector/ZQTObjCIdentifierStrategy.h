@@ -41,13 +41,13 @@ public:
     
     // 更新类列表
     void updateClassList();
-    
+    CppClassIdentifier cppIdentifier;
+
 private:
     void initializeClassList();
     bool isTaggedPointer(const void* ptr) const;
     Class getClassForTaggedPointer(const void* ptr) const;
     bool isValidClass(Class cls) const;
-    CppClassIdentifier cppIdentifier;
     CustomVector<__unsafe_unretained Class> allClasses;
 //    yyheap_std_set<Class> classSet;
 //    std::unordered_set<Class> classSet;
