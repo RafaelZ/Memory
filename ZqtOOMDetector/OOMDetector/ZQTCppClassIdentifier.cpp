@@ -26,6 +26,22 @@ const char* SECT_CONST_STR_DEF = "__const";
 const char* SECT_CSTRING_STR_DEF = "__cstring";
 const char* SECT_TEXT_STR_DEF = "__text";
 
+//#define ZQT_LOG
+#ifdef ZQT_LOG
+#define ZQTOUT std::cout
+#else
+struct NullBuffer : public std::streambuf {
+    int overflow(int c) override { return c; }
+};
+
+struct NullStream : public std::ostream {
+    NullStream() : std::ostream(new NullBuffer()) {}
+    ~NullStream() override { delete rdbuf(); }
+};
+
+static NullStream nullStream;
+#define ZQTOUT nullStream
+#endif
 
 namespace ZQT {
 
@@ -42,7 +58,7 @@ bool CppClassIdentifier::initializeImageInfo() {
     systemRttiVTableSections_.clear(); // 清空系统RTTI vtable段列表
     
     uint32_t imageCount = _dyld_image_count();
-    std::cout << "[信息] 动态加载的镜像总数: " << imageCount << std::endl;
+    ZQTOUT << "[信息] 动态加载的镜像总数: " << imageCount << std::endl;
     
     bool foundAnySegmentsForApp = false; // 标记是否为应用找到了任何相关段
 
@@ -57,7 +73,7 @@ bool CppClassIdentifier::initializeImageInfo() {
         // 我们主要关心arm64镜像
         // 如果需要扫描其他架构，请调整此逻辑。
         if (header->magic != MH_MAGIC_64 && header->magic != MH_CIGAM_64) {
-            // std::cout << "[调试] 跳过非64位镜像: " << imageName << std::endl;
+            // ZQTOUT << "[调试] 跳过非64位镜像: " << imageName << std::endl;
             continue;
         }
 
@@ -71,7 +87,7 @@ bool CppClassIdentifier::initializeImageInfo() {
         intptr_t imageSlide = _dyld_get_image_vmaddr_slide(index); // 使用局部变量更清晰
 
         if (isLikelyCppRuntime) {
-             std::cout << "[初始化信息] 识别到潜在的C++运行时: " << imageName << " (slide: 0x" << std::hex << imageSlide << std::dec << ")" << std::endl;
+             ZQTOUT << "[初始化信息] 识别到潜在的C++运行时: " << imageName << " (slide: 0x" << std::hex << imageSlide << std::dec << ")" << std::endl;
         }
 
         uintptr_t current_cmd_address = (uintptr_t)header64 + sizeof(mach_header_64);
@@ -97,7 +113,7 @@ bool CppClassIdentifier::initializeImageInfo() {
                             (segName == SEG_TEXT_STR_DEF && sectName == SECT_CONST_STR_DEF)/* 如果知道其他候选段名，可添加 */) { // 是只读段且有大小
                             auto sectionRange = make_unique_custom<SectionRange>(section_start_addr, section_end_addr, seg_cmd->segname, sect->sectname);
                             systemRttiVTableSections_.push_back(*sectionRange);
-                            std::cout << "[INIT_INFO_VERBOSE_SYS] Image: " << imageName << " Added to systemRttiVTableSections (ALL READ-ONLY): "
+                            ZQTOUT << "[INIT_INFO_VERBOSE_SYS] Image: " << imageName << " Added to systemRttiVTableSections (ALL READ-ONLY): "
                                       << segName << "," << sectName << " Addr: 0x" << std::hex << section_start_addr
                                       << " Size: 0x" << sect->size << std::dec << std::endl;
                         }
@@ -125,10 +141,10 @@ bool CppClassIdentifier::initializeImageInfo() {
         }
     }
 
-    std::cout << "[信息] 应用常量段数量: " << appConstSections_.size() << std::endl;
-    std::cout << "[信息] 应用C字符串段数量: " << appCStringSections_.size() << std::endl;
-    std::cout << "[信息] 应用代码段数量: " << appTextSections_.size() << std::endl;
-    std::cout << "[信息] 系统RTTI vtable候选段数量: " << systemRttiVTableSections_.size() << std::endl;
+    ZQTOUT << "[信息] 应用常量段数量: " << appConstSections_.size() << std::endl;
+    ZQTOUT << "[信息] 应用C字符串段数量: " << appCStringSections_.size() << std::endl;
+    ZQTOUT << "[信息] 应用代码段数量: " << appTextSections_.size() << std::endl;
+    ZQTOUT << "[信息] 系统RTTI vtable候选段数量: " << systemRttiVTableSections_.size() << std::endl;
 
     // 运行时验证 systemRttiVTableSections_ 的收集情况 (用于调试)
 //     verifySystemRttiVTableSections();
@@ -139,7 +155,7 @@ bool CppClassIdentifier::initializeImageInfo() {
 // 用于调试 initializeImageInfo 是否正确收集了系统RTTI vtable段
 void CppClassIdentifier::verifySystemRttiVTableSections() const {
     if (systemRttiVTableSections_.empty()) {
-        std::cout << "[系统段验证] 未收集到任何系统RTTI vtable候选段。" << std::endl;
+        ZQTOUT << "[系统段验证] 未收集到任何系统RTTI vtable候选段。" << std::endl;
         return;
     }
 
@@ -147,14 +163,14 @@ void CppClassIdentifier::verifySystemRttiVTableSections() const {
     // 我们需要的是 type_info 对象的 vptr, 它指向 std::type_info (或其派生类) 的 vtable。
     void* p_rtti_vtable_sample = (void*)(*(uintptr_t*)(&ti_sample)); // 获取 vptr 的值
 
-    std::cout << "[系统段验证] typeid(int) 的运行时vptr (指向RTTI vtable): 0x"
+    ZQTOUT << "[系统段验证] typeid(int) 的运行时vptr (指向RTTI vtable): 0x"
               << std::hex << (uintptr_t)p_rtti_vtable_sample << std::dec << std::endl;
 
     bool found_in_system_sections = false;
     for (const auto& range : systemRttiVTableSections_) {
         if (range.contains((uintptr_t)p_rtti_vtable_sample)) {
             found_in_system_sections = true;
-            std::cout << "[系统段验证]   成功: 示例RTTI vtable指针在以下系统段中找到: 段名="
+            ZQTOUT << "[系统段验证]   成功: 示例RTTI vtable指针在以下系统段中找到: 段名="
                       << range.segmentName << ", 节名="
                       << range.sectionName
                       << " 范围=[0x" << std::hex << range.start << ", 0x" << range.end << "]"
@@ -163,10 +179,10 @@ void CppClassIdentifier::verifySystemRttiVTableSections() const {
         }
     }
     if (!found_in_system_sections) {
-        std::cout << "[系统段验证]   错误: 示例RTTI vtable指针 未在任何已记录的 systemRttiVTableSections_ 中找到。" << std::endl;
-        std::cout << "[系统段验证]   已记录的 systemRttiVTableSections_ 列表:" << std::endl;
+        ZQTOUT << "[系统段验证]   错误: 示例RTTI vtable指针 未在任何已记录的 systemRttiVTableSections_ 中找到。" << std::endl;
+        ZQTOUT << "[系统段验证]   已记录的 systemRttiVTableSections_ 列表:" << std::endl;
         for (const auto& range : systemRttiVTableSections_) {
-             std::cout << "    段名=" << range.segmentName << ", 节名="
+             ZQTOUT << "    段名=" << range.segmentName << ", 节名="
                        << range.sectionName
                        << " 范围=[0x" << std::hex << range.start << ", 0x" << range.end << "]"
                        << std::dec << std::endl;
@@ -251,7 +267,7 @@ CustomString CppClassIdentifier::demangle(const char* mangledName) const {
 }
 
 void CppClassIdentifier::scanForCppClasses() {
-    std::cout << "[信息] 开始执行 CppClassIdentifier::scanForCppClasses()" << std::endl;
+    ZQTOUT << "[信息] 开始执行 CppClassIdentifier::scanForCppClasses()" << std::endl;
     if (!initializeImageInfo()) {
         // initializeImageInfo 内部现在会打印自己的错误信息（如果它认为初始化失败）
         std::cerr << "[错误] CppClassIdentifier: 因镜像信息初始化问题退出扫描。" << std::endl;
@@ -262,10 +278,10 @@ void CppClassIdentifier::scanForCppClasses() {
     processedTypeInfoAddresses_.clear();
 
     if (appConstSections_.empty()) {
-        std::cout << "[警告] 未找到可扫描的应用常量段。退出 scanForCppClasses。" << std::endl;
+        ZQTOUT << "[警告] 未找到可扫描的应用常量段。退出 scanForCppClasses。" << std::endl;
         return;
     }
-    std::cout << "[信息] 正在扫描 " << appConstSections_.size() << " 个应用常量段。" << std::endl;
+    ZQTOUT << "[信息] 正在扫描 " << appConstSections_.size() << " 个应用常量段。" << std::endl;
 
     // 主扫描循环遍历 appConstSections_
     for (const auto& section : appConstSections_) {
@@ -370,7 +386,7 @@ void CppClassIdentifier::scanForCppClasses() {
             // 这个检查可能过于严格，因为纯虚函数、桩函数等原因。
             // 目前，我们假设如果进行到这里，它就是一个候选类。
 
-            std::cout << "[成功] 找到C++类: \"" << demangled_name_str.c_str() << "\""
+            ZQTOUT << "[成功] 找到C++类: \"" << demangled_name_str.c_str() << "\""
                       << "\"" << mangled_name_ptr_value << "\""
                       << " (RTTI @ 0x" << std::hex << addr_ti // type_info 对象的地址
                       << ", Class VTable[0] @ 0x" << class_vtable_first_func_slot_addr // vtable中第一个虚函数条目的地址
@@ -382,7 +398,7 @@ void CppClassIdentifier::scanForCppClasses() {
             processedTypeInfoAddresses_.insert(addr_ti); // 标记这个RTTI对象已处理
         }
     }
-    std::cout << "[信息] 扫描完成。找到 " << knownCppClasses_.size() << " 个C++类。" << std::endl;
+    ZQTOUT << "[信息] 扫描完成。找到 " << knownCppClasses_.size() << " 个C++类。" << std::endl;
 }
 
 

@@ -446,7 +446,9 @@ kern_return_t memory_reader(task_t task, vm_address_t remote_address, vm_size_t 
 }
 
 long _zqtNodeCounts = 0;
+long _zqtNodeSize = 0;
 long _zqtCustomZoneNodeCounts = 0;
+long _zqtCustomZoneNodeSize = 0;
 // 将 range_callback 改为静态成员函数
 void range_callback(task_t task, void *context, unsigned type, vm_range_t *ranges, unsigned rangeCount)
 {
@@ -460,6 +462,9 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
             _zqtNodeCounts++;
             if (temp != 0) {
                 _zqtCustomZoneNodeCounts++;
+                _zqtCustomZoneNodeSize+=range.size;
+            } else {
+                _zqtNodeSize+=range.size;
             }
         }
     }
@@ -469,6 +474,8 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
 {
     _zqtNodeCounts = 0;
     _zqtCustomZoneNodeCounts = 0;
+    _zqtNodeSize = 0;
+    _zqtCustomZoneNodeSize = 0;
     // 获取所有 malloc zones
     unsigned int count;
     vm_address_t *zones = NULL;
@@ -504,14 +511,13 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
                                     &range_callback);
         }
                     
-//        NSLog(@"Zone %s 中的 region 数量: %d", zoneName ? zoneName : "unnamed", regionCount);
     }
 }
 
 - (void)getNodeCount
 {
     [self simpleCountMallocNode];
-    NSLog(@"总共count  %ld   customZone:%ld",_zqtNodeCounts,_zqtCustomZoneNodeCounts);
+    NSLog(@"总共count  %ld   customZone:%ld size: %ld - %ld",_zqtNodeCounts,_zqtCustomZoneNodeCounts,_zqtNodeSize,_zqtCustomZoneNodeSize);
 }
 
 - (void)innerMethod:(int)i lastNodeCount:(NSInteger *)nodeCount
@@ -565,11 +571,11 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
         cfObjCount = 0;
         for (const auto& pair : nodes) {
             const auto& node = pair.second;
-            if (node.type == ZQT::MemoryNodeType::Cpp) {
-                NSLog(@"Cpp节点 - 地址: %p, 大小: %zu, 名称: %s",
+            if (node.type == ZQT::MemoryNodeType::Obj) {
+                NSLog(@"Cpp节点 - 地址: %p, 大小: %zu, 名称: %@",
                       (void*)node.address,
                       node.size,
-                      node.name.c_str());
+                      node.objectClass);
                 cfObjCount++;
                 if (cfObjCount >= 5) { // 最多打印5个
                     break;
@@ -587,7 +593,7 @@ void range_callback(task_t task, void *context, unsigned type, vm_range_t *range
         }
         
         [self simpleCountMallocNode];
-        NSLog(@"--%d-- after malloc %ld %ld %ld",i,currentCount,_zqtNodeCounts,_zqtCustomZoneNodeCounts);
+        NSLog(@"--%d-- after malloc %ld %ld %ld size:%.1f - %.1f",i,currentCount,_zqtNodeCounts,_zqtCustomZoneNodeCounts,_zqtNodeSize/1024.0/1024.0,_zqtCustomZoneNodeSize/1024.0/1024.0);
         
         // 清理 walker
         delete walker;

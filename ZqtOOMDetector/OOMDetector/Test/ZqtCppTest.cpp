@@ -84,7 +84,7 @@ void CreateAndUseTestClasses() {
     polymorphic_base->basePrint();
     
     // 释放内存
-//    delete base;
-//    delete male;
-//    delete female;
+    delete base;
+    delete male;
+    delete female;
 }
