@@ -124,46 +124,65 @@ bool ObjCIdentifierStrategy::isValidClass(Class cls) const {
     return classSet.find(cls) != classSet.end();
 }
 
-MemoryNode* ObjCIdentifierStrategy::identifyObjectAtAddress(vm_address_t address, vm_size_t size) {
-    objc_structure_mock *rawMemoryObject = (objc_structure_mock *)address;
-    void *ptr = (void *)((uint64_t)rawMemoryObject->isa);
-    Class objectClass = NULL;
-#ifdef __arm64__
-    // http://www.sealiesoftware.com/blog/archive/2013/09/24/objc_explain_Non-pointer_isa.html
-    objectClass = (__bridge Class)((void *)((uint64_t)rawMemoryObject->isa & objc_debug_isa_class_mask));
-#else
-    objectClass = rawMemoryObject->isa;
-#endif
-    auto node = make_unique_custom<MemoryNode>();
-    node->address = address;
-    node->size = size;
+MemoryNode* ObjCIdentifierStrategy::identifyObjectAtAddress(vm_address_t address, vm_size_t allocatedSizeHint) {
+    // 优先检查 Tagged Pointer
+    if (isTaggedPointer((const void*)address)) {
+        Class cls = getClassForTaggedPointer((const void*)address);
+        if (cls) {
+            auto node = ZQT::make_unique_custom<MemoryNode>();
+            node->address = address;
+            node->size = sizeof(void*); // Tagged Pointer 大小固定为指针大小
+            strlcpy(node->name, class_getName(cls), sizeof(node->name));
+            // GKI 可以考虑用类名，或者更复杂的唯一标识
+            snprintf(node->GKI, sizeof(node->GKI), "TaggedPointer:%s", node->name);
+            return node.release();
+        }
+        return nullptr; // 无法识别的 Tagged Pointer
+    }
 
-    if (isTaggedPointer(ptr)) {
-        node->type = MemoryNodeType::PointerTagged;
-        node->name = zqt_objc_tag_to_string(getTaggedPointerType(ptr));
+    // 尝试读取 isa 指针
+    if (address == 0 || !ZQT::Utils::isReadableAddress(address, sizeof(Class))) {
+        return nullptr;
+    }
+    Class isa = *reinterpret_cast<Class *>(address);
+    Class cls = ZQT::Utils::getClassFromIsa(isa, false /* allowSwift */); // 假设有一个工具函数处理 isa
+
+    if (cls && isValidClass(cls)) {
+        auto node = ZQT::make_unique_custom<MemoryNode>();
+        node->address = address;
+        node->size = class_getInstanceSize(cls); // 设置为Objective-C对象的实例大小
+        strlcpy(node->name, class_getName(cls), sizeof(node->name));
+        snprintf(node->GKI, sizeof(node->GKI), "ObjC:%s", node->name);
+        node->is_cpp = false;
+        return node.release();
     } else {
-        if (isValidClass(objectClass)) {
-            const char * className = class_getName(objectClass);
-            if (strcmp(className, "__NSCFType") == 0) {
-                node->type = MemoryNodeType::CFObj;
-                //‼️遍历过程中不能获取CFType，会导致锁崩溃
+        // 如果不是有效的 Objective-C 对象，尝试 C++ 对象识别
+        CustomString cppClassName;
+        if (cppIdentifier.isInstanceOfKnownCppClass(reinterpret_cast<const void*>(address), cppClassName)) {
+            auto node = ZQT::make_unique_custom<MemoryNode>();
+            node->address = address;
+            // 对于C++对象，其实例大小无法通过ZQTCppClassIdentifier直接获取。
+            // allocatedSizeHint 在这里可能更有用，但策略本身不应该依赖它来决定实例大小。
+            // HeapWalker将使用allocatedSizeHint来跳跃。
+            // 如果确实需要估算C++对象大小，可能需要更复杂的启发式或假设。
+            // 目前，如果无法从类型信息中得到，可以暂时设为0或一个标记值。
+            // 或者，我们可以假设如果allocatedSizeHint有效，那么它就是对象的大小，但这不总是准确。
+            // 为了让HeapWalker正确跳过，这里暂时不设置size，或者设置一个基于类型的估算值（如果可能）。
+            // 更好的做法是让HeapWalker直接使用malloc_size。
+            // 这里我们返回一个节点，但其size字段对于C++对象可能不太准确或为0.
+            node->size = 0; //  C++ 对象大小未知，由 HeapWalker 根据 allocatedSizeHint 处理跳跃
+            if (!cppClassName.empty()) {
+                strlcpy(node->name, cppClassName.c_str(), sizeof(node->name));
             } else {
-                node->type = MemoryNodeType::Obj;
+                strlcpy(node->name, "UnknownCppClass", sizeof(node->name));
             }
-            node->objectClass = objectClass;
-        } else {
-            CustomString stringName;
-            if (cppIdentifier.isInstanceOfKnownCppClass((void *)address, stringName)) {
-                node->type = MemoryNodeType::Cpp;
-                node->name = stringName;
-            } else if (k_enum_pure_block) {
-                node->type = MemoryNodeType::Malloc;
-                node->name = "malloc";
-            }
+            snprintf(node->GKI, sizeof(node->GKI), "Cpp:%s", node->name);
+            node->is_cpp = true;
+            return node.release();
         }
     }
     
-    return node.release();
+    return nullptr;
 }
 
 } // namespace ZQT

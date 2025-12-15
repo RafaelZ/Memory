@@ -71,17 +71,33 @@ bool CppClassIdentifier::initializeImageInfo() {
         }
 
         // 我们主要关心arm64镜像
-        // 如果需要扫描其他架构，请调整此逻辑。
         if (header->magic != MH_MAGIC_64 && header->magic != MH_CIGAM_64) {
-            // ZQTOUT << "[调试] 跳过非64位镜像: " << imageName << std::endl;
             continue;
         }
 
-        // 简单判断是否可能是 C++ 运行时库 (例如 libc++.dylib)
-        // 这个判断需要根据目标环境进行调整以保证稳健性。
-        bool isLikelyCppRuntime = (strstr(imageName, "libc++") != nullptr);
-        // 更稳健的方法: 检查 LC_LOAD_DYLIB 条目，匹配已知的C++运行时库名称。
-
+        // 判断是否为C++运行时库
+        bool isLikelyCppRuntime = (strstr(imageName, "libc++.1.dylib") != nullptr || 
+                                   strstr(imageName, "libstdc++.6.dylib") != nullptr);
+        
+        // 判断是否为应用程序的一部分 (主可执行文件或应用包内的框架/动态库)
+        // 注意：这里的路径检查可能需要根据实际的应用包结构进行调整。
+        // 例如，更通用的方法是获取主包的路径：
+        // NSBundle *mainBundle = [NSBundle mainBundle];
+        // const char *appBundlePath = [[mainBundle bundlePath] UTF8String];
+        // 然后检查 imageName 是否以 appBundlePath 开头。
+        // 由于这是纯C++文件，我们用一个简化的路径检查。
+        // 假设应用安装在 /var/containers/Bundle/Application/或者通过模拟器路径
+        bool isAppImage = (header->filetype == MH_EXECUTE) || 
+                          (strstr(imageName, "/var/containers/Bundle/Application/") != nullptr && strstr(imageName, ".app/") != nullptr) || 
+                          (strstr(imageName, "Developer/CoreSimulator/Devices/") != nullptr && strstr(imageName, ".app/") != nullptr);
+        
+        // 排除纯系统框架和动态库，除非它是C++运行时
+        if (!isAppImage && !isLikelyCppRuntime && 
+            (strstr(imageName, "/usr/lib/") != nullptr || 
+             strstr(imageName, "/System/Library/") != nullptr)) {
+            // ZQTOUT << "[调试] 跳过系统镜像: " << imageName << std::endl;
+            continue;
+        }
 
         const mach_header_64* header64 = (const mach_header_64*)header;
         intptr_t imageSlide = _dyld_get_image_vmaddr_slide(index); // 使用局部变量更清晰
@@ -107,25 +123,24 @@ bool CppClassIdentifier::initializeImageInfo() {
                     uintptr_t section_end_addr = section_start_addr + sect->size;
                     
                     if (isLikelyCppRuntime) {
-                        // 临时诊断：添加所有只读段
+                        // 对于C++运行时，收集 __const 段作为系统RTTI vtable的候选
                         if ((segName == SEG_AUTH_CONST_STR_DEF && sectName == SECT_CONST_STR_DEF) ||
                             (segName == SEG_DATA_CONST_STR_DEF && sectName == SECT_CONST_STR_DEF) ||
-                            (segName == SEG_TEXT_STR_DEF && sectName == SECT_CONST_STR_DEF)/* 如果知道其他候选段名，可添加 */) { // 是只读段且有大小
+                            (segName == SEG_TEXT_STR_DEF && sectName == SECT_CONST_STR_DEF) ) { 
                             auto sectionRange = make_unique_custom<SectionRange>(section_start_addr, section_end_addr, seg_cmd->segname, sect->sectname);
                             systemRttiVTableSections_.push_back(*sectionRange);
-                            ZQTOUT << "[INIT_INFO_VERBOSE_SYS] Image: " << imageName << " Added to systemRttiVTableSections (ALL READ-ONLY): "
+                            ZQTOUT << "[INIT_INFO_VERBOSE_SYS] Image: " << imageName << " Added to systemRttiVTableSections: "
                                       << segName << "," << sectName << " Addr: 0x" << std::hex << section_start_addr
                                       << " Size: 0x" << sect->size << std::dec << std::endl;
                         }
-
-                    } else if (header->filetype == MH_EXECUTE){
+                    } else if (isAppImage) { // 如果是应用镜像 (主程序或其bundle内的dylibs/frameworks)
                         // 对于应用和其他动态库，填充主要的扫描列表
                         if ((segName == SEG_TEXT_STR_DEF && sectName == SECT_CONST_STR_DEF) ||
-                            (segName == SEG_DATA_STR_DEF && sectName == SECT_CONST_STR_DEF) || // 较早的系统可能使用 __DATA,__const
+                            (segName == SEG_DATA_STR_DEF && sectName == SECT_CONST_STR_DEF) || 
                             (segName == SEG_DATA_CONST_STR_DEF && sectName == SECT_CONST_STR_DEF)) {
                             auto sectionRange = make_unique_custom<SectionRange>(section_start_addr, section_end_addr, seg_cmd->segname, sect->sectname);
                             appConstSections_.push_back(*sectionRange);
-                            foundAnySegmentsForApp = true; // 标记为主应用或其直接依赖找到了常量段
+                            foundAnySegmentsForApp = true; 
                         } else if (segName == SEG_TEXT_STR_DEF && sectName == SECT_CSTRING_STR_DEF) {
                             auto sectionRange = make_unique_custom<SectionRange>(section_start_addr, section_end_addr, seg_cmd->segname, sect->sectname);
                             appCStringSections_.push_back(*sectionRange);
@@ -133,7 +148,7 @@ bool CppClassIdentifier::initializeImageInfo() {
                             auto sectionRange = make_unique_custom<SectionRange>(section_start_addr, section_end_addr, seg_cmd->segname, sect->sectname);
                             appTextSections_.push_back(*sectionRange);
                         }
-                    }
+                    } // 其他类型的镜像（例如非C++运行时也不是应用一部分的系统库）将被忽略
                     section_ptr += sizeof(section_64);
                 }
             }

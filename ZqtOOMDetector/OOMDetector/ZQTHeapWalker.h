@@ -34,6 +34,12 @@ public:
     // 添加静态回调函数声明
     static void range_callback(task_t task, void *context, unsigned type, vm_range_t *ranges, unsigned rangeCount);
     
+    void processPotentialObject(vm_address_t address, const HeapChunkInfo& chunk);
+    
+    // 标记一块内存为已访问，并记录相关的 MemoryNode (如果提供)
+    // 注意：现在 HeapWalker 主要关心跳过由 malloc_size 决定的整个分配块。
+    void markMemoryAsVisited(vm_address_t startAddress, vm_size_t allocatedSize);
+
 private:
     struct MemoryTracker {
         size_t total_allocated = 0;

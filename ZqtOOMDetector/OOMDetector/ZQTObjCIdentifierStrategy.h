@@ -37,7 +37,7 @@ public:
     ObjCIdentifierStrategy& operator=(ObjCIdentifierStrategy&& other) noexcept;
     
     // 实现基类接口
-    MemoryNode* identifyObjectAtAddress(vm_address_t address, vm_size_t size) override;
+    MemoryNode* identifyObjectAtAddress(vm_address_t address, vm_size_t allocatedSizeHint) override;
     
     // 更新类列表
     void updateClassList();
